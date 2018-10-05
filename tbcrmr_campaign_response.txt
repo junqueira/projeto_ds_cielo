@@ -1,0 +1,244 @@
+
+df = spark.sql("SELECT * FROM analytics.tbcrmr_campaign_response")
+
+>>> df.count()
+8956825
+
+>>> df.select('nu_so_ec').distinct().count()
+1053226
+
+>>> df.groupby('event').count().show()
++------------+-------+
+|       event|  count|
++------------+-------+
+|   INTERESSE|1079610|
+|   AUDITORIA| 225744|
+|    REJEIÇÃO|3053175|
+|DESCONHECIDO|3260884|
+|      ACEITE|1337412|
++------------+-------+
+
+
+>>> df.groupby('responsetypeid').count().show()
++--------------+-------+
+|responsetypeid|  count|
++--------------+-------+
+|            10|1387397|
+|            11| 299103|
+|             2|1968991|
+|             4|5301334|
++--------------+-------+
+
+
+>>> df.select('cd_motivo_retorno').distinct().count()
+365
+
+
+>>> df.select('cd_ilha').distinct().count()
+49
+
+
+>>> df.groupby('canal').count().show()
++-----+-------+
+|canal|  count|
++-----+-------+
+| null|3260884|
+|  URA|2924160|
+|Smart|      4|
+|  CRM|2771777|
++-----+-------+
+
+
+>>> df.groupby('int_point').count().show()
++------------------+-------+
+|         int_point|  count|
++------------------+-------+
+|        CRM Piloto|    893|
+|     URA Receptiva| 750194|
+|              null|4895466|
+|STATUS_SOLICITACAO|  44256|
+|        SITE_CIELO|  14965|
+|        FINANCEIRO|  20632|
+|              TOPO|3207500|
+|          PRODUTOS|  22919|
++------------------+-------+
+
+
+>>> df.select('offercode').distinct().count()
+433
+
+>>> df.select('nome_oferta').distinct().count()
+432
+
+>>> df.groupby('classificacao_oferta').count().show()
++--------------------+-------+
+|classificacao_oferta|  count|
++--------------------+-------+
+|          E-COMMERCE|     17|
+|        MDR DESCONTO| 701091|
+|         CIELO PROMO|1497839|
+|                 ARV|1147194|
+|    APLICATIVO CIELO|  97522|
+|SC - INCENTIVO PO...|1010844|
+|            PESQUISA|  47993|
+|              OUTROS|1934240|
+|               FAROL| 112280|
+|     ALERTA MULTIVAN| 874975|
+|RELACIONAMENTO AO...|  78857|
+|             RECARGA| 124964|
+|               FÊNIX|1041084|
+|SC - SEGUNDA SOLUÇÃO| 290848|
++--------------------+-------+
+
+
+
+>>> df.groupby('classificacao_ilha').count().show()
++--------------------+-------+
+|  classificacao_ilha|  count|
++--------------------+-------+
+|            RETENÇÃO|1299141|
+|                null|3260902|
+|                CHAT|     26|
+|CENTRAL / URA / T...|4399679|
++--------------------+-------+
+
+
+>>> df.groupby('categoria_oferta').count().show()
++----------------+-------+
+|categoria_oferta|  count|
++----------------+-------+
+|         PRODUTO|1735083|
+|          OUTROS|3033587|
+|     EQUIPAMENTO| 290865|
+|           PREÇO|3900213|
++----------------+-------+
+
+>>> df.select('dc_mot_retorno_oferta').distinct().count()
+342
+
+
+>>> df.groupby('in_cpc').count().show()
++------+-------+
+|in_cpc|  count|
++------+-------+
+|  null|6186928|
+|     1|1471199|
+|     0|1301621|
++------+-------+
+
+
+>>> df.groupby('taxa_debito').count().show()
++-----------+-------+
+|taxa_debito|  count|
++-----------+-------+
+|       null|8959743|
+|       1.74|      1|
+|       1.08|      1|
+|       2.10|      1|
+|       1.71|      1|
+|       1.48|      1|
++-----------+-------+
+
+
+>>> df.groupby('taxa_credito').count().show()
++------------+-------+
+|taxa_credito|  count|
++------------+-------+
+|        1.84|      1|
+|        null|8959742|
+|        2.39|      1|
+|        1.75|      1|
+|        3.08|      1|
+|        3.15|      1|
+|        2.56|      1|
++------------+-------+
+
+
+
+>>> df.groupby('taxa_parc_3x').count().show()
++------------+-------+
+|taxa_parc_3x|  count|
++------------+-------+
+|        null|8959742|
+|        2.09|      1|
+|        3.64|      1|
+|        2.18|      1|
+|        3.71|      1|
+|        3.08|      1|
+|        2.82|      1|
++------------+-------+
+
+
+>>> df.groupby('taxa_parc_6x').count().show()
++------------+-------+
+|taxa_parc_6x|  count|
++------------+-------+
+|        2.29|      1|
+|        null|8959745|
+|        2.21|      1|
+|        2.94|      1|
++------------+-------+
+
+
+>>> df.groupby('taxa_parc_12x').count().show()
++-------------+-------+
+|taxa_parc_12x|  count|
++-------------+-------+
+|         2.43|      1|
+|         null|8959745|
+|         2.52|      1|
+|         3.24|      1|
++-------------+-------+
+
+
+>>> df.groupby('meta_faturamento').count().show()
++----------------+-------+
+|meta_faturamento|  count|
++----------------+-------+
+|        30187.90|      1|
+|            null|8959742|
+|        33000.00|      1|
+|        78786.95|      1|
+|        16790.19|      1|
+|        25725.84|      1|
+|        59580.00|      1|
++----------------+-------+
+
+
+>>> df.groupby('id_visita').count().show()
++---------+-------+
+|id_visita|  count|
++---------+-------+
+| 68671332|      1|
+| 68671347|      1|
+| 68671348|      1|
+|     null|8959742|
+| 68671339|      1|
+| 68671328|      1|
+| 68671326|      1|
++---------+-------+
+
+
+
+>>> df.groupby('cd_responsavel').count().show()
++--------------+-------+
+|cd_responsavel|  count|
++--------------+-------+
+|          null|8959742|
+|         12345|      6|
++--------------+-------+
+
+
+
+
+>>> df.groupby('cd_prod_dono_carteira').count().show()
++---------------------+-------+
+|cd_prod_dono_carteira|  count|
++---------------------+-------+
+|                 null|8959742|
+|                12345|      6|
++---------------------+-------+
+
+
+
+
