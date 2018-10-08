@@ -1,10 +1,14 @@
 Histórico (Oracle) de negociação de taxas
   - tbcrmr_campaign_response (falta os campos com os valores das taxas)
+  
 Histórico de rentabilidade
   - (?)
+  
 Base de cadastro de produtos por cliente
-  - taxa_przo_ctdo
+  - tbdwf_taxa_przo_ctdo: 5 bi de linhas, 7.6 mi de ec's únicos
+  
 Transacional do cliente
   - tbdwt_transacao: 36.8 bi de linhas, em 201709 719 mi de linhas, com o código de transação único
+  
 Cadastro do cliente
   - tbdwr_ec: 9.9 mi de ec's
