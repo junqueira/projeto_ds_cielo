@@ -5,10 +5,19 @@ Histórico de rentabilidade
   - (?)
   
 Base de cadastro de produtos por cliente
-  - tbdwf_taxa_przo_ctdo: 5 bi de linhas, 7.6 mi de ec's únicos
+  - tbdwf_taxa_przo_ctdo:
+      - 5 bi de linhas
+      - 7.6 mi de ec's únicos
+      - primeira data 201512
   
 Transacional do cliente
-  - tbdwt_transacao: 36.8 bi de linhas, em 201709 719 mi de linhas, com o código de transação único
+  - tbdwt_transacao:
+      - 36.8 bi de linhas
+      - em 201709 719 mi de linhas, com o código de transação único (ou seja, 36.8 bi de transacoes)
+      - primeira data 201401
   
 Cadastro do cliente
-  - tbdwr_ec: 9.9 mi de ec's
+  - tbdwr_ec:
+      - 9.9 mi de ec's
+      - Existem datas de 1610, decadas de 70, 80, 90, 00...
+      - 5.5 mi de ec's com dt_exclusao_ec nulo (ou seja, 5.5 mi com ec não exluído)  
