@@ -4,6 +4,13 @@ df = spark.sql("SELECT * FROM analytics.tbcrmr_campaign_total_ofertas")
 >>> df.count()
 228
 
+>>> df.select('offercode').distinct().count()
+122
+
+>>> df.select('nm_oferta').distinct().count()
+122
+
+
 >>> df.groupby('cd_ilha').count().show()
 +-------+-----+
 |cd_ilha|count|
@@ -41,6 +48,9 @@ df = spark.sql("SELECT * FROM analytics.tbcrmr_campaign_total_ofertas")
 |Retenção Empreend...|    2|
 |Retenção Empreend...|   11|
 +--------------------+-----+
+
+>>> df.select('subtotal').distinct().count()
+200
 
 >>> df.groupby('status').count().show()
 +------------+-----+
