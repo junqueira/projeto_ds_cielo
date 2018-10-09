@@ -1,21 +1,41 @@
 Histórico (Oracle) de negociação de taxas
   - tbcrmr_campaign_response (falta os campos com os valores das taxas)
   
+
 Histórico de rentabilidade
   - (?)
   
-Base de cadastro de produtos por cliente
+
+Base de cadastro de produtos por cliente in_mdr_mnmo (?)
+- 
   - tbdwf_taxa_przo_ctdo:
       - 5 bi de linhas
       - 7.6 mi de ec's únicos
       - primeira data 201512
   
+
 Transacional do cliente
   - tbdwt_transacao:
       - 36.8 bi de linhas
       - em 201709 719 mi de linhas, com o código de transação único (ou seja, 36.8 bi de transacoes)
       - primeira data 201401
+      - se for usar infos agregadas transacionais, como fazer com clientes novos/recentes?
+      - Variáveis interessantes:
+          - nm_meio_captura (pos, pdv dedicado...)
+          - dc_produto (visa, elo debito, maestro...)
+          - qt_min_parl_ctdo, qt_max_parl_ctdo, pc_desconto_min, pc_desconto_max
+          - dc_forma_pagamento (a vista, parcelado...)
+          - dc_tipo_transacao
+          - nm_bandeira
+          - dc_tipo_cartao (visa gold, visa classic...)
+          - dc_for_cartao_trans (debito tradicional, credito tradicional...)
+          - qt_parcelas, vl_parcela, vl_transacao, vl_comi_taxa
+          - nm_grupo_banco (individuais, bradesco, santander...)
+          - nm_ramo_atividade (padarias, drogarias, mercearias...)
+          - nm_grp_slc_capt (pos, tef...)
+          - in_mdr_mnmo (?)
   
+
 Cadastro do cliente
   - tbdwr_ec:
       - 9.9 mi de ec's
