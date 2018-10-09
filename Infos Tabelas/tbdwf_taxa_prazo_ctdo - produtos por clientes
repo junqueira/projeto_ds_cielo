@@ -1,0 +1,90 @@
+Base de cadastro de produtos por cliente
+  - tbdwf_taxa_prazo_ctdo:
+      - 5 bi de linhas
+      - 7.6 mi de ec's únicos
+      - primeira data 
+      - Variáveis interessantes:
+          - dc_produto (mastercard parcelado loja, amex credito parcelado loja...)
+          - qt_min_parl_ct  do, qt_max_parl_ctdo
+          - pc_desconto_min, pc_desconto_max
+          - vl_tarifa_min, vl_tarifa_max
+          - nm_ramo_atividade
+          - nm_fxa_parcelado
+          - dc_faixa_inativ
+          - dc_tipo_liquidacao (adquirencia, van...)
+          - nm_bandeira
+          - dc_tipo_transacao (debito, credito, nao se aplica...)
+          - dc_forma_pagamento (a vista, parcelado...)
+
+df=spark.sql('select dc_produto, qt_min_parl_ctdo, qt_max_parl_ctdo, pc_desconto_min, pc_desconto_max, vl_tarifa_min, vl_tarifa_max, nm_ramo_atividade \
+nm_fxa_parcelado, dc_faixa_inativ, dc_tipo_liquidacao, nm_bandeira, dc_tipo_transacao, dc_forma_pagamento from analytics.tbdwf_taxa_prazo_ctdo')
+
+>>> df.select('dc_produto').distinct().count()
+151
+
+>>> df.groupBy('qt_min_parl_ctdo').count().show(50)
++----------------+----------+
+|qt_min_parl_ctdo|     count|
++----------------+----------+
+|              12|  55070019|
+|              60|  96215149|
+|               2|3453245663|
+|               0|1421280710|
++----------------+----------+
+
+>>> df.groupBy('qt_max_parl_ctdo').count().show(50)
++----------------+----------+
+|qt_max_parl_ctdo|     count|
++----------------+----------+
+|              12|2011557530|
+|              48|      1726|
+|               5|        35|
+|              49|1598959887|
+|              10|   2772109|
+|              24|  55070019|
+|              60|  96215149|
+|              99|  15182048|
+|               0|1246053038|
++----------------+----------+
+
+
+>>> df.groupBy('pc_desconto_min').count().show(50)
++---------------+----------+
+|pc_desconto_min|     count|
++---------------+----------+
+|           0.00| 165682590|
+|           0.50| 756982661|
+|           1.90|1851624523|
+|           1.50|1678048190|
+|           0.01| 131309208|
+|           1.15|    520732|
+|           2.50|   3651684|
+|           1.85|      5548|
+|           1.20|     11482|
+|           2.00|  96215149|
+|           0.80|  17392599|
+|           0.75|  43388975|
+|           1.25|   5219967|
+|           1.35| 275758233|
++---------------+----------+
+
+
+
+>>> df.groupBy('pc_desconto_max').count().show(50)
++---------------+----------+
+|pc_desconto_max|     count|
++---------------+----------+
+|           0.00| 165682590|
+|           7.00|  99866833|
+|           4.30|   8028473|
+|           1.15|    520732|
+|           1.85|      5548|
+|           5.00|     56356|
+|           5.50|2465325459|
+|           8.00|1999433652|
+|           0.75|  43388975|
+|           1.25|   5219967|
+|           5.98|  97654496|
+|          15.00| 113461917|
+|           3.40|  27166543|
++---------------+----------+
