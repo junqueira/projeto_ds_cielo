@@ -20,4 +20,19 @@ Cadastro do cliente
   - tbdwr_ec:
       - 9.9 mi de ec's
       - Existem datas de 1610, decadas de 70, 80, 90, 00...
-      - 5.5 mi de ec's com dt_exclusao_ec nulo (ou seja, 5.5 mi com ec não exluído)  
+      - 5.5 mi de ec's com dt_exclusao_ec nulo (ou seja, 5.5 mi com ec não exluído)
+      - Variáveis interessantes:
+          - nm_sgm_comerc (varejo, vestuario, servico...)
+          - dc_tipo_pessoa
+          - sg_so_uf, nm_so_cidade, lat/lng, nu_cep
+          - nm_ramo_atividade (vendedor motocicletas, roupas masc, miscelanias...)
+          - nm_sub_setor (venda veiculos, varejo, vestuario...)
+          - dc_tipo_ec_multivan (elo, alelo, sem multivan...)
+          - dc_pacote_serv (light, mais, basico...)
+          - dc_micro_setor_bigdata (vendedores ambulantes, vendas diretas, varejo auto-peças...)
+          - dc_situ_funcion (fechado, aberto, reaberto...)
+          - dc_situ_ativ_ec (expurgado, inativo, ativo...)
+          - dc_precisao (1 estrela, 4 estrelas, Lucene 3 estrelas...)
+          - nm_cadeia_forcada (?)
+          - nm_so_cidade_corresp, nu_so_uf_corresp
+          - mn_matriz_sgmt (mercados em expansao, empreendedores...)
