@@ -1,0 +1,236 @@
+Cadastro do cliente
+  - tbdwr_ec:
+      - 9.9 mi de ec's
+      - Existem datas de 1610, decadas de 70, 80, 90, 00...
+      - 5.5 mi de ec's com dt_exclusao_ec nulo (ou seja, 5.5 mi com ec não exluído)
+      - Variáveis interessantes:
+          - nm_sgm_comerc (varejo, vestuario, servico...)
+          - dc_tipo_pessoa
+          - sg_so_uf, nm_so_cidade, lat/lng, nu_cep
+          - nm_ramo_atividade (vendedor motocicletas, roupas masc, miscelanias...)
+          - nm_sub_setor (venda veiculos, varejo, vestuario...)
+          - dc_tipo_ec_multivan (elo, alelo, sem multivan...)
+          - dc_pacote_serv (light, mais, basico...)
+          - dc_micro_setor_bigdata (vendedores ambulantes, vendas diretas, varejo auto-peças...)
+          - dc_situ_funcion (fechado, aberto, reaberto...)
+          - dc_situ_ativ_ec (expurgado, inativo, ativo...)
+          - dc_precisao (1 estrela, 4 estrelas, Lucene 3 estrelas...)
+          - nm_cadeia_forcada (?)
+          - nm_so_cidade_corresp, nu_so_uf_corresp
+          - mn_matriz_sgmt (mercados em expansao, empreendedores...)
+          
+df=spark.sql('select nm_sgm_comerc, dc_tipo_pessoa, sg_so_uf, nm_so_cidade, nm_ramo_atividade, nm_sub_setor, dc_tipo_ec_multivan, dc_pacote_serv, dc_micro_setor_bigdata, \
+dc_situ_funcion, dc_situ_ativ_ec, dc_precisao, nm_cadeia_forcada, nm_so_cidade_corresp, sg_so_uf_corresp, mn_matriz_sgmt from analytics.tbdwr_ec')
+
+>>> df.groupBy('nm_sgm_comerc').count().show(23)
++--------------------+-------+
+|       nm_sgm_comerc|  count|
++--------------------+-------+
+|LOJAS DE DEPARTAM...|  56720|
+|       SUPERMERCADOS| 852399|
+| ARTIGOS ELETRONICOS| 192996|
+| MOVEIS E DECORACOES| 239947|
+|           JOALHERIA|  44790|
+|           VESTUARIO|1270073|
+|       LINHAS AEREAS|  10757|
+|HOSPITAIS E CLINICAS| 293588|
+|                null|    179|
+|              VAREJO|2130243|
+|    NAO IDENTIFICADO|  17256|
+|MATERIAIS DE CONS...| 470704|
+|TELEMARKETING / C...| 367323|
+|           AUTOPECAS| 255258|
+|       NAO SE APLICA|      2|
+|              HOTEIS|  70948|
+|        RESTAURANTES| 812438|
+|DROGARIAS E FARMA...| 183680|
+| AGENCIAS DE TURISMO|  40680|
+|   ALUGUEL DE CARROS|  24490|
+|         INEXISTENTE|     15|
+|             SERVICO|2540298|
+|  POSTOS DE GASOLINA| 118747|
++--------------------+-------+
+
+>>> df.groupBy('dc_tipo_pessoa').count().show(50)
++--------------+-------+
+|dc_tipo_pessoa|  count|
++--------------+-------+
+|        F¿sica|2479221|
+|              |  21296|
+|      Jur¿dica|7493014|
++--------------+-------+
+
+
++--------+-------+
+|sg_so_uf|  count|
++--------+-------+
+|      SC| 353058|
+|      RO|  78201|
+|      PI|  61944|
+|      AM| 123010|
+|      RR|  20573|
+|      GO| 369227|
+|    null|     16|
+|      TO|  59747|
+|      MT| 202411|
+|      SP|3176959|
+|      ES| 218623|
+|      PB|  98189|
+|      RS| 452420|
+|      MS| 144928|
+|      AL|  83842|
+|      MG| 947264|
+|      PA| 211960|
+|      BA| 540692|
+|      SE|  52638|
+|      PE| 280015|
+|      FN|      2|
+|       1|      2|
+|      CE| 246302|
+|      RN|  99571|
+|      RJ|1108617|
+|      MA| 138109|
+|      AC|  30236|
+|      DF| 230411|
+|      PR| 620999|
+|      AP|  28484|
+|       2|  15081|
++--------+-------+
+
+>>> df.select('nm_ramo_atividade').distinct().count()
+395
+
+>>> df.groupBy('nm_sub_setor').count().show(50)
++--------------------+-------+
+|        nm_sub_setor|  count|
++--------------------+-------+
+|           Industria|  40417|
+| Aluguel de veiculos|  24490|
+|Servicos financeiros|  27021|
+|              Hoteis|  72408|
+|Veterinarias e pe...|  22781|
+|Atacado especiali...|  46150|
+|Varejo alimentici...| 429827|
+|Organizacoes sem ...|  39864|
+|                null|   2793|
+|           Vestuario|1412576|
+|        Agropecuaria|  20262|
+|        Cias. Aereas|  10757|
+|Radio, televisao ...|  43857|
+|Agencias e operad...|  40680|
+|Servicos imobilia...|  19814|
+|Materiais para co...| 523802|
+|Venda de veiculos...|  85602|
+|               Saude| 285142|
+|Lojas de departam...| 167870|
+|     Estacionamentos|  18246|
+| oticas e joalherias| 116754|
+|Drogarias e farma...| 183680|
+|Livrarias, papela...| 128745|
+|      Servicos de TI|  87544|
+|Auto-pecas e serv...| 470004|
+|Varejo alimentici...| 532708|
+|          Construcao|  93490|
+|  Eletro-eletronicos| 342371|
+|      Outros varejos|1332766|
+|          Transporte| 250473|
+|    Nao Identificado|  17411|
+|         Alimentacao| 878139|
+|     Outros servicos| 901377|
+|Cosmeticos e higi...| 187067|
+|Estetica e cabele...| 400770|
+|           Mineracao|      2|
+|            Educacao| 135949|
+|Postos de combust...| 118747|
+|Governo e concess...| 126950|
+|  Moveis e decoracao| 228301|
+|   Recreacao e lazer| 125904|
+|        Nao Definido|     20|
++--------------------+-------+
+
+
+>>> df.groupBy('dc_tipo_ec_multivan').count().show(50)
++--------------------+-------+
+| dc_tipo_ec_multivan|  count|
++--------------------+-------+
+|ALELO EM OUTRA(S)...|  13228|
+|ELO + ALELO EM OU...|  57678|
+|        SEM MULTIVAN|5539715|
+|ELO + ALELO EM OU...| 364812|
+|ELO + ALELO EM OU...|  88622|
+|ELO EM OUTRAS VAN...|1357542|
+|ALELO EM OUTRAS V...|  56991|
+|       NAO SE APLICA|      6|
+|ELO EM OUTRA(S) V...|2514937|
++--------------------+-------+
+
+
+>>> df.groupBy('dc_pacote_serv').count().show(50)
++----------------+-------+
+|  dc_pacote_serv|  count|
++----------------+-------+
+|            Mais|5398573|
+|NAO IDENTIFICADO|     10|
+|             Top| 213634|
+|       Transicao|3848245|
+|           Light| 309759|
+|          Basico| 223310|
++----------------+-------+
+
+
+>>> df.select('dc_micro_setor_bigdata').distinct().count()
+87
+
+>>> df.groupBy('dc_situ_funcion').count().show(50)
++----------------+-------+
+| dc_situ_funcion|  count|
++----------------+-------+
+|         FECHADO|6353402|
+|          ABERTO|2603969|
+|NAO IDENTIFICADO|  15072|
+|        PENDENTE|   1362|
+|        REABERTO|1019724|
+|   NAO SE APLICA|      2|
++----------------+-------+
+
+
+>>> df.groupBy('dc_situ_ativ_ec').count().show(50)
++----------------+-------+
+| dc_situ_ativ_ec|  count|
++----------------+-------+
+|FATURAMENTO ZERO| 689857|
+|NAO IDENTIFICADO|  15071|
+|         INATIVO|3678300|
+|       EXPURGADO|4436618|
+|   NAO SE APLICA|      2|
+|           ATIVO|1173683|
++----------------+-------+
+
+
+>>> df.groupBy('dc_precisao').count().show(50)
++-----------------+-------+
+|      dc_precisao|  count|
++-----------------+-------+
+|       3 Estrelas|3130884|
+|             null|   9868|
+|        1 Estrela| 849234|
+|Lucene 4 Estrelas|  62379|
+|       2 Estrelas| 215853|
+|Lucene 3 Estrelas|  58977|
+|       4 Estrelas|5659407|
+|             ERRO|   6929|
++-----------------+-------+
+
+>>> df.groupBy('mn_matriz_sgmt').count().show(50)
++--------------------+-------+
+|      mn_matriz_sgmt|  count|
++--------------------+-------+
+|           Especiais| 493379|
+|      Novos Mercados|  61315|
+|           Franquias|  77795|
+|            Empresas| 163136|
+|Mercados em Expansão|3398502|
+|      Empreendedores|5707551|
+|           Corporate|  89468|
+|          Exclusivos|   2385|
++--------------------+-------+
