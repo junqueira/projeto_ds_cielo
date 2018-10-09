@@ -6,12 +6,23 @@ Histórico de rentabilidade
   - (?)
   
 
-Base de cadastro de produtos por cliente in_mdr_mnmo (?)
-- 
+Base de cadastro de produtos por cliente
   - tbdwf_taxa_przo_ctdo:
       - 5 bi de linhas
       - 7.6 mi de ec's únicos
-      - primeira data 201512
+      - primeira data 
+      - Variáveis interessantes:
+          - dc_produto (mastercard parcelado loja, amex credito parcelado loja...)
+          - qt_min_parl_ctdo, qt_max_parl_ctdo
+          - pc_desconto_min, pc_desconto_max
+          - vl_tarifa_min, vl_tarifa_max
+          - nm_ramo_atividade
+          - nm_fxa_parcelado
+          - dc_faixa_inativ
+          - dc_tipo_liquidacao (adquirencia, van...)
+          - nm_bandeira
+          - dc_tipo_transacao (debito, credito, nao se aplica...)
+          - dc_forma_pagamento (a vista, parcelado...)
   
 
 Transacional do cliente
