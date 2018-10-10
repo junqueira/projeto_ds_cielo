@@ -47,7 +47,6 @@ nm_fxa_parcelado, dc_faixa_inativ, dc_tipo_liquidacao, nm_bandeira, dc_tipo_tran
 |               0|1246053038|
 +----------------+----------+
 
-
 >>> df.groupBy('pc_desconto_min').count().show(50)
 +---------------+----------+
 |pc_desconto_min|     count|
@@ -68,8 +67,6 @@ nm_fxa_parcelado, dc_faixa_inativ, dc_tipo_liquidacao, nm_bandeira, dc_tipo_tran
 |           1.35| 275758233|
 +---------------+----------+
 
-
-
 >>> df.groupBy('pc_desconto_max').count().show(50)
 +---------------+----------+
 |pc_desconto_max|     count|
@@ -88,3 +85,107 @@ nm_fxa_parcelado, dc_faixa_inativ, dc_tipo_liquidacao, nm_bandeira, dc_tipo_tran
 |          15.00| 113461917|
 |           3.40|  27166543|
 +---------------+----------+
+
+>>> df.groupBy('vl_tarifa_min').count().show(50)
++-------------+----------+
+|vl_tarifa_min|     count|
++-------------+----------+
+|         null|5013994147|
+|         0.06|  12069784|
++-------------+----------+
+
+>>> df.groupBy('vl_tarifa_max').count().show(50)
++-------------+----------+
+|vl_tarifa_max|     count|
++-------------+----------+
+|         null|5013994147|
+|         0.06|  12069784|
++-------------+----------+
+
+>>> df.select('nm_ramo_atividade').distinct().count()
+374
+
+>>> df.select('nm_fxa_parcelado').distinct().count()
+100
+
+>>> df.groupBy('dc_faixa_inativ').count().show(50)
++----------------+----------+
+| dc_faixa_inativ|     count|
++----------------+----------+
+| MAIS DE 6 MESES|1763551564|
+|NAO IDENTIFICADO|   4294068|
+|  MENOS DE 1 MES|1237245774|
+|         2 MESES|  45174433|
+|         3 MESES|  41919990|
+|   NAO SE APLICA|1759378729|
+|           1 MES|  56076048|
+|         4 MESES|  40114824|
+|         6 MESES|  38961947|
+|         5 MESES|  39346554|
++----------------+----------+
+
+>>> df.groupBy('dc_tipo_liquidacao').count().show(50)
++------------------+----------+
+|dc_tipo_liquidacao|     count|
++------------------+----------+
+|       ADQUIRENCIA|4647575612|
+|               VAN| 345264723|
+|  NAO IDENTIFICADO|  33164981|
+|          MULTIPLO|     58615|
++------------------+----------+
+
+>>> df.groupBy('nm_bandeira').count().show(50)
++------------+---------+
+| nm_bandeira|    count|
++------------+---------+
+|   BANESCARD|417025645|
+|        VISA|783711396|
+|   ESPLANADA|  8295840|
+|       CREDZ|279180613|
+|  MASTERCARD|610351520|
+|   GOOD CARD| 10609483|
+|          VR|  5518828|
+|         ELO|700812183|
+|      SAPORE|  1854599|
+|   HIPERCARD| 96316135|
+|      AVISTA|  3368081|
+|REDE COMPRAS|  5711615|
+|  VEROCHEQUE|  1314542|
+|       HIPER| 38317085|
+|    OUROCARD|  2484371|
+|        AMEX|298798454|
+|    POLICARD| 10347287|
+|      DINERS|479183751|
+|       CABAL|405779612|
+|     AGIPLAN|274752977|
+|         JCB|  5422423|
+|   GREENCARD|  3250210|
+|   SODEXO HP|  9732038|
+|       BONUS|   948310|
+|     CALCARD|  2277526|
+|    SOROCRED|276947160|
+|  CREDSYSTEM|279050577|
+|    VALECARD|  5623717|
+|      TICKET|  2961031|
+|     MAXXVAN|  6116922|
++------------+---------+
+
+>>> df.groupBy('dc_tipo_transacao').count().show(50)
++-----------------+----------+
+|dc_tipo_transacao|     count|
++-----------------+----------+
+|           DEBITO| 957228298|
+|        VISA CASH|     44874|
+|    NAO SE APLICA|  71170904|
+|          CREDITO|3969916142|
+|             VALE|  27703713|
++-----------------+----------+
+
+>>> df.groupBy('dc_forma_pagamento').count().show(50)
++------------------+----------+
+|dc_forma_pagamento|     count|
++------------------+----------+
+|           A VISTA|2940616639|
+|        PRE-DATADO|  12069784|
+|         PARCELADO|2073377508|
++------------------+----------+
