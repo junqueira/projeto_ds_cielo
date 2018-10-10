@@ -1,4 +1,3 @@
-
 df = spark.sql("SELECT * FROM analytics.tbcrmr_campaign_response")
 
 >>> df.count()
