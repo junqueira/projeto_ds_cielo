@@ -19,8 +19,10 @@ Transacional do cliente
           - nm_grp_slc_capt (pos, tef...)
           - in_mdr_mnmo (?)
 
-df=spark.sql('select nm_meio_captura, dc_produto, qt_min_parl_ctdo, qt_max_parl_ctdo, pc_desconto_min, pc_desconto_max, dc_forma_pagamento, dc_tipo_transacao, nm_bandeira, \
-dc_tipo_cartao, dc_for_cartao_trans, qt_parcelas, vl_parcela, vl_transacao, vl_comi_taxa, nm_grupo_banco, nm_ramo_atividade, nm_grp_slc_capt, in_mdr_mnmo, year, month from analytics.tbdwt_transacao where year=2017 and month=9')
+df = spark.sql('select nm_meio_captura, dc_produto, qt_min_parl_ctdo, qt_max_parl_ctdo, pc_desconto_min, pc_desconto_max, \
+dc_forma_pagamento, dc_tipo_transacao, nm_bandeira, dc_tipo_cartao, dc_for_cartao_trans, \
+qt_parcelas, vl_parcela, vl_transacao, vl_comi_taxa, nm_grupo_banco, nm_ramo_atividade, nm_grp_slc_capt, in_mdr_mnmo, \
+year, month from analytics.tbdwt_transacao where year=2017 and month=9')
 
 >>> df.groupBy('nm_meio_captura').count().show(50)
 +--------------------+-----------+
@@ -184,26 +186,38 @@ dc_tipo_cartao, dc_for_cartao_trans, qt_parcelas, vl_parcela, vl_transacao, vl_c
 |          2| 27698241|
 +-----------+---------+
 
->>> df.select(mean('vl_parcela'), min('vl_parcela'), max('vl_parcela')).show()
-+---------------+---------------+---------------+
-|avg(vl_parcela)|min(vl_parcela)|max(vl_parcela)|
-+---------------+---------------+---------------+
-|     110.325054|        -320.00|      140732.50|
-+---------------+---------------+---------------+
+>>> df.select('vl_parcela').describe().show()
++-------+-----------------+
+|summary|       vl_parcela|
++-------+-----------------+
+|  count|        121987168|
+|   mean|       110.325054|
+| stddev|197.3394346338727|
+|    min|          -320.00|
+|    max|        140732.50|
++-------+-----------------+
 
->>> df.select(mean('vl_transacao'), min('vl_transacao'), max('vl_transacao')).show()
-+-----------------+-----------------+-----------------+
-|avg(vl_transacao)|min(vl_transacao)|max(vl_transacao)|
-+-----------------+-----------------+-----------------+
-|        73.246387|       -750106.72|       9900000.00|
-+-----------------+-----------------+-----------------+
+>>> df.select('vl_transacao').describe().show()
++-------+------------------+
+|summary|      vl_transacao|
++-------+------------------+
+|  count|         719128317|
+|   mean|         73.246387|
+| stddev|1668.0497959977713|
+|    min|        -750106.72|
+|    max|        9900000.00|
++-------+------------------+
 
->>> df.select(mean('vl_comi_taxa'), min('vl_comi_taxa'), max('vl_comi_taxa')).show()
-+-----------------+-----------------+-----------------+
-|avg(vl_comi_taxa)|min(vl_comi_taxa)|max(vl_comi_taxa)|
-+-----------------+-----------------+-----------------+
-|         1.509817|        -12905.00|         74250.00|
-+-----------------+-----------------+-----------------+
+>>> df.select('vl_comi_taxa').describe().show()
++-------+------------------+
+|summary|      vl_comi_taxa|
++-------+------------------+
+|  count|         711460230|
+|   mean|          1.509817|
+| stddev|13.777150812498668|
+|    min|         -12905.00|
+|    max|          74250.00|
++-------+------------------+
 
 >>> df.groupBy('nm_grupo_banco').count().show(50)
 +--------------+---------+
