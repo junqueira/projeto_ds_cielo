@@ -1,9 +1,7 @@
 df=spark.sql("select * from analytics.tbdwr_hstr_smlc")
 
-
 >>> df.count()
 14525663
-
 
 >>> df.select('nu_so_ec').distinct().count()
 1220529
