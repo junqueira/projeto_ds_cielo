@@ -1,0 +1,246 @@
+Transacional do cliente
+  - tbdwt_transacao:
+      - 36.8 bi de linhas
+      - em 201709 719 mi de linhas, com o código de transação único (ou seja, 36.8 bi de transacoes)
+      - primeira data 201401
+      - se for usar infos agregadas transacionais, como fazer com clientes novos/recentes?
+      - Variáveis interessantes:
+          - nm_meio_captura (pos, pdv dedicado...)
+          - dc_produto (visa, elo debito, maestro...)
+          - qt_min_parl_ctdo, qt_max_parl_ctdo, pc_desconto_min, pc_desconto_max
+          - dc_forma_pagamento (a vista, parcelado...)
+          - dc_tipo_transacao
+          - nm_bandeira
+          - dc_tipo_cartao (visa gold, visa classic...)
+          - dc_for_cartao_trans (debito tradicional, credito tradicional...)
+          - qt_parcelas, vl_parcela, vl_transacao, vl_comi_taxa
+          - nm_grupo_banco (individuais, bradesco, santander...)
+          - nm_ramo_atividade (padarias, drogarias, mercearias...)
+          - nm_grp_slc_capt (pos, tef...)
+          - in_mdr_mnmo (?)
+
+df=spark.sql('select nm_meio_captura, dc_produto, qt_min_parl_ctdo, qt_max_parl_ctdo, pc_desconto_min, pc_desconto_max, dc_forma_pagamento, dc_tipo_transacao, nm_bandeira, \
+dc_tipo_cartao, dc_for_cartao_trans, qt_parcelas, vl_parcela, vl_transacao, vl_comi_taxa, nm_grupo_banco, nm_ramo_atividade, nm_grp_slc_capt, in_mdr_mnmo, year, month from analytics.tbdwt_transacao where year=2017 and month=9')
+
+>>> df.groupBy('nm_meio_captura').count().show(50)
++--------------------+-----------+
+|     nm_meio_captura|      count|
++--------------------+-----------+
+|              MOBILE|   92403839|
+|                 LIO|   69085799|
+|   MOBILE BLACKBERRY|       1786|
+|    NAO IDENTIFICADO|  618697120|
+|                 EDI|  225031927|
+|   URA - AUTORIZAÇÃO|      25156|
+|                 POS|18558554464|
+|         PDV-DISCADO|   20890020|
+|        PDV DEDICADO|12949227075|
+|      POS - WIRELESS|   10519340|
+| COMERCIO ELETRONICO| 2758554085|
+|    LEITOR DE TRILHA|          4|
+|       MOBILE IPHONE|     369698|
+|      MOBILE ANDROID|     419276|
+|                 ZIP|     306652|
+|           MAQUINETA|    2153216|
+|       PONTO A PONTO|      49017|
+|MOBILE CELULAR SI...|      15125|
+|     URA - VISA VALE|        648|
+|POS COMPARTILHADO...|        360|
+|POS COMPARTILHADO...| 1436960897|
+|            PIP-AMEX|     476752|
+|         BACK-OFFICE|   60080449|
++--------------------+-----------+
+
+>>> df.select('dc_produto').distinct().count()
+52
+
+>>> df.groupBy('qt_min_parl_ctdo').count().show(50)
++----------------+---------+
+|qt_min_parl_ctdo|    count|
++----------------+---------+
+|            null|  2139097|
+|              60|     1784|
+|               2|332153129|
+|               0|384834307|
++----------------+---------+
+
+>>> df.groupBy('qt_max_parl_ctdo').count().show(50)
++----------------+---------+
+|qt_max_parl_ctdo|    count|
++----------------+---------+
+|              12|122330208|
+|            null|  2139097|
+|              49|210422321|
+|              60|     1784|
+|               0|384234907|
++----------------+---------+
+
+>>> df.groupBy('pc_desconto_min').count().show(50)
++---------------+---------+
+|pc_desconto_min|    count|
++---------------+---------+
+|           0.50|378218337|
+|           1.90|122262965|
+|           null|  2139097|
+|           1.50|119717086|
+|           0.01|  5582696|
+|           2.50|   413471|
+|           2.00|     1784|
+|           0.80|     1473|
+|           0.75|    15938|
+|           1.25|       18|
+|           1.35| 90775452|
++---------------+---------+
+
+>>> df.groupBy('pc_desconto_max').count().show(50)
++---------------+---------+
+|pc_desconto_max|    count|
++---------------+---------+
+|           7.00|   415255|
+|           null|  2139097|
+|           4.30|    11219|
+|           5.00|  2678285|
+|           5.50|588643632|
+|           8.00|122330208|
+|           0.75|    15938|
+|           1.25|       18|
+|          15.00|    75334|
+|           3.40|  2819331|
++---------------+---------+
+
+>>> df.groupBy('dc_forma_pagamento').count().show(50)
++------------------+---------+
+|dc_forma_pagamento|    count|
++------------------+---------+
+|              null|  2139097|
+|           A VISTA|594659012|
+|         PARCELADO|122330208|
++------------------+---------+
+
+>>> df.groupBy('dc_tipo_transacao').count().show(50)
++-----------------+---------+
+|dc_tipo_transacao|    count|
++-----------------+---------+
+|             null|  2139097|
+|           DEBITO|381055408|
+|        VISA CASH|  2678285|
+|          CREDITO|333255527|
++-----------------+---------+
+
+>>> df.groupBy('nm_bandeira').count().show(50)
++-----------+---------+
+|nm_bandeira|    count|
++-----------+---------+
+|  BANESCARD|   492321|
+|       VISA|252676190|
+|       null|  2139097|
+|      CREDZ|   460609|
+| MASTERCARD|285762103|
+|        ELO|174881382|
+|  HIPERCARD|    82954|
+|       AMEX|     1355|
+|     DINERS|   967166|
+|      CABAL|   321717|
+|   SOROCRED|   288271|
+| CREDSYSTEM|  1055152|
++-----------+---------+
+
+>>> df.select('dc_tipo_cartao').distinct().count()
+56
+
+>>> df.groupBy('dc_for_cartao_trans').count().show(50)
++--------------------+---------+
+| dc_for_cartao_trans|    count|
++--------------------+---------+
+|  CREDITO VISA FACIL|    37015|
+|   DEBITO VISA FACIL|    92192|
+|    NAO IDENTIFICADO|   497767|
+|VISA CASH TRADICI...|  2678285|
+|       DEBITO OUTROS|      188|
+| CREDITO TRADICIONAL|330820199|
+|       NAO SE APLICA|  4073965|
+|    DEBITO CCORRENTE|       50|
+|  DEBITO TRADICIONAL|380928656|
++--------------------+---------+
+
+>>> df.groupBy('qt_parcelas').count().show(50)
++-----------+---------+
+|qt_parcelas|    count|
++-----------+---------+
+|         12|  4873138|
+|       null|597141195|
+|         13|      147|
+|          6| 13795630|
+|          3| 32945534|
+|          5| 10560566|
+|         15|     3910|
+|          9|   654708|
+|          4| 13044054|
+|          8|  1910302|
+|          7|  1156084|
+|         10| 15199220|
+|         11|   145070|
+|         14|      518|
+|          2| 27698241|
++-----------+---------+
+
+>>> df.select(mean('vl_parcela'), min('vl_parcela'), max('vl_parcela')).show()
++---------------+---------------+---------------+
+|avg(vl_parcela)|min(vl_parcela)|max(vl_parcela)|
++---------------+---------------+---------------+
+|     110.325054|        -320.00|      140732.50|
++---------------+---------------+---------------+
+
+>>> df.select(mean('vl_transacao'), min('vl_transacao'), max('vl_transacao')).show()
++-----------------+-----------------+-----------------+
+|avg(vl_transacao)|min(vl_transacao)|max(vl_transacao)|
++-----------------+-----------------+-----------------+
+|        73.246387|       -750106.72|       9900000.00|
++-----------------+-----------------+-----------------+
+
+>>> df.select(mean('vl_comi_taxa'), min('vl_comi_taxa'), max('vl_comi_taxa')).show()
++-----------------+-----------------+-----------------+
+|avg(vl_comi_taxa)|min(vl_comi_taxa)|max(vl_comi_taxa)|
++-----------------+-----------------+-----------------+
+|         1.509817|        -12905.00|         74250.00|
++-----------------+-----------------+-----------------+
+
+>>> df.groupBy('nm_grupo_banco').count().show(50)
++--------------+---------+
+|nm_grupo_banco|    count|
++--------------+---------+
+|     SANTANDER| 81101037|
+|      BRADESCO| 99563031|
+|      ABN REAL|   120142|
+|   INDIVIDUAIS|377025620|
+| NAO SE APLICA| 12131658|
+|          ITAU|149186829|
++--------------+---------+
+
+>>> df.select('nm_ramo_atividade').distinct().count()
+334
+
+>>> df.groupBy('nm_grp_slc_capt').count().show(50)
++--------------------+---------+
+|     nm_grp_slc_capt|    count|
++--------------------+---------+
+|                 VOL|  1366826|
+|              MOBILE|   720017|
+|                 LIO|   929626|
+|                 TEF|280379736|
+|                null|  1735519|
+|           ECOMMERCE| 52389423|
+|    NAO IDENTIFICADO| 47315199|
+|                 EDI|  3465229|
+|                 POS|329495857|
+|                 URA|      309|
+|TERMINAL NÃO INIC...|  1190464|
+|       NAO SE APLICA|   140112|
++--------------------+---------+
+
++-----------+---------+
+|in_mdr_mnmo|    count|
++-----------+---------+
+|       null|719128317|
++-----------+---------+
+
