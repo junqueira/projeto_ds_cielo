@@ -17,7 +17,6 @@ df = spark.sql("SELECT * FROM analytics.tbcrmr_campaign_response")
 |      ACEITE|1337412|
 +------------+-------+
 
-
 >>> df.groupby('responsetypeid').count().show()
 +--------------+-------+
 |responsetypeid|  count|
@@ -28,14 +27,11 @@ df = spark.sql("SELECT * FROM analytics.tbcrmr_campaign_response")
 |             4|5301334|
 +--------------+-------+
 
-
 >>> df.select('cd_motivo_retorno').distinct().count()
 365
 
-
 >>> df.select('cd_ilha').distinct().count()
 49
-
 
 >>> df.groupby('canal').count().show()
 +-----+-------+
@@ -46,7 +42,6 @@ df = spark.sql("SELECT * FROM analytics.tbcrmr_campaign_response")
 |Smart|      4|
 |  CRM|2771777|
 +-----+-------+
-
 
 >>> df.groupby('int_point').count().show()
 +------------------+-------+
@@ -61,7 +56,6 @@ df = spark.sql("SELECT * FROM analytics.tbcrmr_campaign_response")
 |              TOPO|3207500|
 |          PRODUTOS|  22919|
 +------------------+-------+
-
 
 >>> df.select('offercode').distinct().count()
 433
@@ -89,8 +83,6 @@ df = spark.sql("SELECT * FROM analytics.tbcrmr_campaign_response")
 |SC - SEGUNDA SOLUÇÃO| 290848|
 +--------------------+-------+
 
-
-
 >>> df.groupby('classificacao_ilha').count().show()
 +--------------------+-------+
 |  classificacao_ilha|  count|
@@ -100,7 +92,6 @@ df = spark.sql("SELECT * FROM analytics.tbcrmr_campaign_response")
 |                CHAT|     26|
 |CENTRAL / URA / T...|4399679|
 +--------------------+-------+
-
 
 >>> df.groupby('categoria_oferta').count().show()
 +----------------+-------+
@@ -115,7 +106,6 @@ df = spark.sql("SELECT * FROM analytics.tbcrmr_campaign_response")
 >>> df.select('dc_mot_retorno_oferta').distinct().count()
 342
 
-
 >>> df.groupby('in_cpc').count().show()
 +------+-------+
 |in_cpc|  count|
@@ -124,7 +114,6 @@ df = spark.sql("SELECT * FROM analytics.tbcrmr_campaign_response")
 |     1|1471199|
 |     0|1301621|
 +------+-------+
-
 
 >>> df.groupby('taxa_debito').count().show()
 +-----------+-------+
@@ -137,7 +126,6 @@ df = spark.sql("SELECT * FROM analytics.tbcrmr_campaign_response")
 |       1.71|      1|
 |       1.48|      1|
 +-----------+-------+
-
 
 >>> df.groupby('taxa_credito').count().show()
 +------------+-------+
@@ -152,8 +140,6 @@ df = spark.sql("SELECT * FROM analytics.tbcrmr_campaign_response")
 |        2.56|      1|
 +------------+-------+
 
-
-
 >>> df.groupby('taxa_parc_3x').count().show()
 +------------+-------+
 |taxa_parc_3x|  count|
@@ -167,7 +153,6 @@ df = spark.sql("SELECT * FROM analytics.tbcrmr_campaign_response")
 |        2.82|      1|
 +------------+-------+
 
-
 >>> df.groupby('taxa_parc_6x').count().show()
 +------------+-------+
 |taxa_parc_6x|  count|
@@ -178,7 +163,6 @@ df = spark.sql("SELECT * FROM analytics.tbcrmr_campaign_response")
 |        2.94|      1|
 +------------+-------+
 
-
 >>> df.groupby('taxa_parc_12x').count().show()
 +-------------+-------+
 |taxa_parc_12x|  count|
@@ -188,7 +172,6 @@ df = spark.sql("SELECT * FROM analytics.tbcrmr_campaign_response")
 |         2.52|      1|
 |         3.24|      1|
 +-------------+-------+
-
 
 >>> df.groupby('meta_faturamento').count().show()
 +----------------+-------+
@@ -203,7 +186,6 @@ df = spark.sql("SELECT * FROM analytics.tbcrmr_campaign_response")
 |        59580.00|      1|
 +----------------+-------+
 
-
 >>> df.groupby('id_visita').count().show()
 +---------+-------+
 |id_visita|  count|
@@ -217,8 +199,6 @@ df = spark.sql("SELECT * FROM analytics.tbcrmr_campaign_response")
 | 68671326|      1|
 +---------+-------+
 
-
-
 >>> df.groupby('cd_responsavel').count().show()
 +--------------+-------+
 |cd_responsavel|  count|
@@ -227,9 +207,6 @@ df = spark.sql("SELECT * FROM analytics.tbcrmr_campaign_response")
 |         12345|      6|
 +--------------+-------+
 
-
-
-
 >>> df.groupby('cd_prod_dono_carteira').count().show()
 +---------------------+-------+
 |cd_prod_dono_carteira|  count|
@@ -237,4 +214,3 @@ df = spark.sql("SELECT * FROM analytics.tbcrmr_campaign_response")
 |                 null|8959742|
 |                12345|      6|
 +---------------------+-------+
-
