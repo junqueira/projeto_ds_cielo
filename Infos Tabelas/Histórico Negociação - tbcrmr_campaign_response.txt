@@ -214,3 +214,110 @@ df = spark.sql("SELECT * FROM analytics.tbcrmr_campaign_response")
 |                 null|8959742|
 |                12345|      6|
 +---------------------+-------+
+
+
+
+##############################################
+# Analisando as variaveis de acordo com a variável resposta 'event'
+
+
+>>> df.groupBy('event').pivot('responsetypeid').count().show()
++------------+-------+-------+-------+------+
+|       event|      2|      4|     10|    11|
++------------+-------+-------+-------+------+
+|   INTERESSE|   null|   null|1104582|  null|
+|   AUDITORIA|   null|      3|   null|232590|
+|    REJEIÇÃO|   null|3151097|   null|     1|
+|DESCONHECIDO| 631579|2248158| 307787| 73360|
+|      ACEITE|1360019|   null|   null|  null|
++------------+-------+-------+-------+------+
+
+
+>>> df.groupBy('event').pivot('responsetypeid').count().show()
++-----+-------+---------+------------+---------+--------+
+|canal| ACEITE|AUDITORIA|DESCONHECIDO|INTERESSE|REJEIÇÃO|
++-----+-------+---------+------------+---------+--------+
+| null|   null|     null|     3260884|     null|    null|
+|  URA|1176148|     null|        null|  1104582|  724169|
+|Smart|     16|     null|        null|     null|    null|
+|  CRM| 183855|   232593|        null|     null| 2426929|
++-----+-------+---------+------------+---------+--------+
+
+
+>>> df.groupBy('classificacao_oferta').pivot('event').count().show()
++--------------------+------+---------+------------+---------+--------+
+|classificacao_oferta|ACEITE|AUDITORIA|DESCONHECIDO|INTERESSE|REJEIÇÃO|
++--------------------+------+---------+------------+---------+--------+
+|          E-COMMERCE|  null|     null|          14|     null|       3|
+|         CIELO PROMO|  2896|     4375|      652097|   256934|  602858|
+|        MDR DESCONTO| 40578|    55949|      269097|    24404|  320222|
+|                 ARV| 14812|    25549|      303182|   240942|  620172|
+|    APLICATIVO CIELO|  null|     null|       97522|     null|    null|
+|SC - INCENTIVO PO...|237346|    82442|      210163|   125295|  377710|
+|            PESQUISA|  1959|     null|       45722|        6|     373|
+|              OUTROS|127977|    27044|     1144308|    93827|  578949|
+|               FAROL|108980|     null|        null|     null|    3300|
+|     ALERTA MULTIVAN|704256|     null|      154936|     null|   15783|
+|RELACIONAMENTO AO...|  null|     null|        null|    70529|    8328|
+|             RECARGA| 99244|     null|       24845|     null|    2316|
+|               FÊNIX| 19016|    32527|      355100|   289123|  345318|
+|SC - SEGUNDA SOLUÇÃO|  2955|     4707|        3898|     3522|  275766|
++--------------------+------+---------+------------+---------+--------+
+
+
+>>> df.groupBy('canal').pivot('event').count().show()
++-----+-------+---------+------------+---------+--------+
+|canal| ACEITE|AUDITORIA|DESCONHECIDO|INTERESSE|REJEIÇÃO|
++-----+-------+---------+------------+---------+--------+
+| null|   null|     null|     3260884|     null|    null|
+|  URA|1176148|     null|        null|  1104582|  724169|
+|Smart|     16|     null|        null|     null|    null|
+|  CRM| 183855|   232593|        null|     null| 2426929|
++-----+-------+---------+------------+---------+--------+
+
+
+>>> df.groupBy('int_point').pivot('event').count().show()
++------------------+-------+---------+------------+---------+--------+
+|         int_point| ACEITE|AUDITORIA|DESCONHECIDO|INTERESSE|REJEIÇÃO|
++------------------+-------+---------+------------+---------+--------+
+|        CRM Piloto|     12|        3|         543|     null|     335|
+|     URA Receptiva|   null|     null|      750194|     null|    null|
+|              null| 183859|   232590|     2124035|     null| 2426594|
+|STATUS_SOLICITACAO|   null|     null|        null|    46541|    1888|
+|        SITE_CIELO|     17|     null|        null|    15788|     603|
+|        FINANCEIRO|   2052|     null|        null|    24857|     790|
+|              TOPO|1174070|     null|      386112|   993155|  719620|
+|          PRODUTOS|      9|     null|        null|    24241|    1268|
++------------------+-------+---------+------------+---------+--------+
+
+
+>>> df.groupBy('classificacao_ilha').pivot('event').count().show()
++--------------------+-------+---------+------------+---------+--------+
+|  classificacao_ilha| ACEITE|AUDITORIA|DESCONHECIDO|INTERESSE|REJEIÇÃO|
++--------------------+-------+---------+------------+---------+--------+
+|            RETENÇÃO| 105376|   146779|        null|     null| 1084692|
+|                null|     21|        7|     3260884|     null|      12|
+|                CHAT|   null|     null|        null|     null|      26|
+|CENTRAL / URA / T...|1254622|    85807|        null|  1104582| 2066368|
++--------------------+-------+---------+------------+---------+--------+
+
+
+>>> df.groupBy('categoria_oferta').pivot('event').count().show()
++----------------+------+---------+------------+---------+--------+
+|categoria_oferta|ACEITE|AUDITORIA|DESCONHECIDO|INTERESSE|REJEIÇÃO|
++----------------+------+---------+------------+---------+--------+
+|         PRODUTO|211120|     4375|      676942|   256934|  608474|
+|          OUTROS|834192|    27044|     1442488|   164362|  603433|
+|     EQUIPAMENTO|  2955|     4707|        3912|     3522|  275769|
+|           PREÇO|311752|   196467|     1137542|   679764| 1663422|
++----------------+------+---------+------------+---------+--------+
+
+
+>>> df.groupBy('in_cpc').pivot('event').count().show()
++------+-------+---------+------------+---------+--------+
+|in_cpc| ACEITE|AUDITORIA|DESCONHECIDO|INTERESSE|REJEIÇÃO|
++------+-------+---------+------------+---------+--------+
+|  null|1176364|        6|     3260884|  1104777|  725523|
+|     1| 182256|   232739|        null|     null| 1100735|
+|     0|   1704|        2|        null|     null| 1327223|
++------+-------+---------+------------+---------+--------+
