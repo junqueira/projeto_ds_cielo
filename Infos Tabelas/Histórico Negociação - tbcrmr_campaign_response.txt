@@ -233,7 +233,7 @@ df = spark.sql("SELECT * FROM analytics.tbcrmr_campaign_response")
 +------------+-------+-------+-------+------+
 
 
->>> df.groupBy('event').pivot('responsetypeid').count().show()
+>>> df.groupBy('event').pivot('canal').count().show()
 +-----+-------+---------+------------+---------+--------+
 |canal| ACEITE|AUDITORIA|DESCONHECIDO|INTERESSE|REJEIÇÃO|
 +-----+-------+---------+------------+---------+--------+
