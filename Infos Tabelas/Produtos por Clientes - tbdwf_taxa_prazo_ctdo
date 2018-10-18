@@ -19,6 +19,10 @@ Base de cadastro de produtos por cliente
 df=spark.sql('select dc_produto, qt_min_parl_ctdo, qt_max_parl_ctdo, pc_desconto_min, pc_desconto_max, vl_tarifa_min, vl_tarifa_max, nm_ramo_atividade \
 nm_fxa_parcelado, dc_faixa_inativ, dc_tipo_liquidacao, nm_bandeira, dc_tipo_transacao, dc_forma_pagamento from analytics.tbdwf_taxa_prazo_ctdo')
 
+>>> df.select('nu_so_ec, dc_produto').distinct().count()
+178949310
+# média de 24 produtos por EC
+
 >>> df.select('dc_produto').distinct().count()
 151
 
